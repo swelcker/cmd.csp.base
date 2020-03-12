@@ -1,0 +1,41 @@
+<div class="animated fadeIn">
+   <div class="col-md-12">
+       <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> LOGS
+        </div>
+        <div class="card-body">
+ <div class="table-responsive"  ng-controller="AppLogCtrl" >
+      <table class="table table-striped table-hover" >
+       <thead>
+        <tr>
+          <th ng-click="type = 'timestamp'; reverse = !reverse">Timestamp</th>
+          <th ng-click="type = 'verticlename'; reverse = !reverse">Verticle</th>
+          <th ng-click="type = 'level'; reverse = !reverse">Level</th>
+          <th ng-click="type = 'message'; reverse = !reverse">Message</th>
+          <th ng-click="type = 'callerinfo'; reverse = !reverse">Caller</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="l in logs">
+          <td>{{l.timestamp}}</td>
+          <td>{{l.verticlename}}</td>
+          <td><span ng-if="l.level" class='label label-success'>{{l.level}}</span></td>
+          <td>{{l.message}}</td>
+          <td>{{l.callerinfo}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+      </div>
+    
+    
+    </div>
+
+</div>
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>

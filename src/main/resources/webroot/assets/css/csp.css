@@ -1,0 +1,160 @@
+@charset "UTF-8";
+/*!
+ * csp specific css
+ * @version v1.0.0
+ * @link http://coreui.io
+ * Copyright (c) 2018 Stefan Welcker, ESDE
+ */
+
+.input-number-group {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.input-number-group input[type=number]::-webkit-inner-spin-button,
+.input-number-group input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+}
+
+.input-number-group .input-group-button {
+
+}
+
+.input-number-group .input-number {
+  width: 60px;
+  padding: 0 12px;
+  vertical-align: top;
+  text-align: center;
+  outline: none;
+  display: block;
+  margin: 0;
+}
+
+.input-number-group .input-number,
+.input-number-group .input-number-decrement,
+.input-number-group .input-number-increment {
+  border: 1px solid #cacaca;
+  height: 30px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-radius: 0;
+}
+
+.input-number-group .input-number-decrement,
+.input-number-group .input-number-increment {
+  display: inline-block;
+  width: 30px;
+  background: #e6e6e6;
+  color: #0a0a0a;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.input-number-group .input-number-decrement {
+  margin-right: 0.3rem;
+}
+
+.input-number-group .input-number-increment {
+  margin-left: 0.3rem;
+}
+
+.dataTables_length, .dataTables_info {
+	float: left!important;
+}
+
+.circle-graph {
+  width: 6.25rem;
+  height: 6.25rem;
+  border-radius: 50%;
+  background-color: #8a8a8a;
+  left: calc(50% - 3.125rem);
+  top: calc(50% - 3.125rem);
+    position: relative;
+}
+
+.circle-graph.gt-50 {
+  background-color: #1779ba;
+}
+
+.circle-graph-progress {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 3.125rem);
+  top: calc(50% - 3.125rem);
+  width: 6.25rem;
+  height: 6.25rem;
+  clip: rect(0, 6.25rem, 6.25rem, 3.125rem);
+}
+
+.circle-graph-progress .circle-graph-progress-fill {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 3.125rem);
+  top: calc(50% - 3.125rem);
+  width: 6.25rem;
+  height: 6.25rem;
+  clip: rect(0, 3.125rem, 6.25rem, 0);
+  background: #1779ba;
+  -webkit-transform: rotate(60deg);
+      -ms-transform: rotate(60deg);
+          transform: rotate(60deg);
+}
+
+.gt-50 .circle-graph-progress {
+  clip: rect(0, 3.125rem, 6.25rem, 0);
+}
+
+.gt-50 .circle-graph-progress .circle-graph-progress-fill {
+  clip: rect(0, 6.25rem, 6.25rem, 3.125rem);
+  background: #8a8a8a;
+}
+
+.circle-graph-percents {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 4.75862rem/2);
+  top: calc(50% - 4.75862rem/2);
+  width: 4.75862rem;
+  height: 4.75862rem;
+  background: #e6e6e6;
+  text-align: center;
+  display: table;
+  z-index: 4;
+}
+
+.circle-graph-percents .circle-graph-percents-number {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1779ba;
+}
+
+.circle-graph-percents .circle-graph-percents-units {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.circle-graph-percents-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 0;
+}
+
+.circle-graph-percents-wrapper span {
+  line-height: 1;
+}
+

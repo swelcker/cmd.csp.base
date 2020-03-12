@@ -1,0 +1,62 @@
+<!-- Navbar -->
+<div ng-include="'assets/views/common/navbar.html'" include-replace></div>
+<div class="app-body">
+  <!-- Navigation -->
+  <div ng-include="'assets/views/common/sidebar-nav.html'" include-replace></div>
+  <!-- Main content -->
+  <main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb" breadcrumb>
+      <ncy-breadcrumb></ncy-breadcrumb>
+
+      <!-- Breadcrumb Menu-->
+      <li class="breadcrumb-menu">
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown" ng-controller="AppIndexCtrl">
+          <a class="btn" href="#"><i class="icon-speech"></i></a>
+          <a class="btn" ui-sref="app.main"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+       
+      <a class="btn" data-toggle="modal" data-target="#mysettings"><i class="icon-settings"></i> &nbsp;Settings</a>
+
+
+    
+    		      				<!-- Modal -->
+		<div class="modal fade" id="mysettings" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg modal-primary" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		
+		       <angular-jsoneditor ng-model="records[0].metadata.app" options="options" style="width: 100%; height: 300px;"></angular-jsoneditor>         
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+			
+	
+          
+          
+        </div>
+      </li>
+
+    </ol>
+    <div class="container-fluid">
+      <ui-view></ui-view>
+    </div>
+    <!-- /.conainer-fluid -->
+  </main>
+
+  <!-- Aside Menu -->
+  <div ng-include="'assets/views/common/aside.html'" include-replace></div>
+
+</div>
+
+<!-- Footer -->
+<div ng-include="'assets/views/common/footer.html'" include-replace></div>

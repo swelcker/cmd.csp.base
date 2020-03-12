@@ -1,0 +1,177 @@
+Controllerhmailserver // To create a new account or alias via the WebGui in a Server
+Different approaches as it is a COM ApI, 
+
+1#############################
+here is another example using [url=http://j-interop.org/]j-interop[/url], which is a pure java COM bridge that requires no JNI, and can be deployed on any platform {win/mac/linux}
+
+
+
+
+import org.jinterop.dcom.common.JISystem;
+import org.jinterop.dcom.core.IJIComObject;
+import org.jinterop.dcom.core.JIComServer;
+import org.jinterop.dcom.core.JIProgId;
+import org.jinterop.dcom.core.JISession;
+import org.jinterop.dcom.core.JIVariant;
+import org.jinterop.dcom.impls.JIObjectFactory;
+import org.jinterop.dcom.impls.automation.IJIDispatch;
+
+public class HMailInerface {
+
+
+
+
+public static void main(String[] args) {
+
+try{
+
+//Create a session with hMail COM object server
+JISession session = JISession.createSession("PC_Domain", "user login name", "user password");
+session.useSessionSecurity(true);
+JIComServer hmailComServerStub = new JIComServer(JIProgId.valueOf("hMailServer.Application"), "windows ip where hMail is installed on", session);
+IJIComObject hmailComInterface = hmailComServerStub.createInstance();
+IJIDispatch hmailComInterfaceDispatch = (IJIDispatch) JIObjectFactory.narrowObject(hmailComInterface.queryInterface(IJIDispatch.IID));
+
+JISystem.setJavaCoClassAutoCollection(true);
+
+// Connect to hMail Server and authenticate, by calling the hMail COM object "Authenticate" method
+hmailComInterfaceDispatch.callMethodA("Authenticate", new Object[]{"hMail admin user name","hMail admin password"});
+
+
+// Get the list of domains registered @ hMail
+JIVariant hmailGetDomains = hmailComInterfaceDispatch.get(hmailComInterfaceDispatch.getIDsOfNames("Domains"));
+IJIDispatch hmailGetDomainsObjectDispatch =(IJIDispatch)JIObjectFactory.narrowObject(hmailGetDomains.getObjectAsComObject());
+
+//Get our specific domain "app.com" object
+JIVariant hmailGetDomainsByName[] = hmailGetDomainsObjectDispatch.get("ItemByName",new Object[]{"app.com"});
+IJIDispatch hmailGetDomainsByNameDispatch =(IJIDispatch)JIObjectFactory.narrowObject(hmailGetDomainsByName[0].getObjectAsComObject());
+
+//Get all accounts associated with this domain to query an account
+JIVariant hmailGetAllAccounts = hmailGetDomainsByNameDispatch.get("Accounts");
+IJIDispatch hmailGetAllAccountsDispatch =(IJIDispatch)JIObjectFactory.narrowObject(hmailGetAllAccounts.getObjectAsComObject());
+
+//Now query any account on this domain
+JIVariant queryAccountsByAddress[] = hmailGetAllAccountsDispatch.get("ItemByAddress",new Object[]{"mm@app.com"});
+IJIDispatch queryAccountsByAddressDispatch =(IJIDispatch)JIObjectFactory.narrowObject(queryAccountsByAddress[0].getObjectAsComObject());
+
+//Get the account password for example
+JIVariant accountAddress = queryAccountsByAddressDispatch.get("Password");
+System.out.println(accountAddress.getObjectAsString2());
+
+
+
+//How to create an account on hMail server
+JIVariant address = new JIVariant("smith@app.com");
+
+//Since we have hmailGetDomainsByNameDispatch previously, we can get from it the Accounts object
+JIVariant hmailGetAccountsObject = hmailGetDomainsByNameDispatch.get("Accounts");
+IJIDispatch hmailGetAccountsObjectDispatch =(IJIDispatch)JIObjectFactory.narrowObject(hmailGetAccountsObject.getObjectAsComObject());
+
+// Call the method ADD to add an account from hmailGetAccountsObjectDispatch object
+JIVariant hMailAddAccount = hmailGetAccountsObjectDispatch.callMethodA("ADD");
+IJIDispatch hMailAddAccountDispatch =(IJIDispatch)JIObjectFactory.narrowObject(hMailAddAccount.getObjectAsComObject());
+
+//Set the properties for this account
+hMailAddAccountDispatch.put("PersonFirstName",new Object[]{"meme"});
+hMailAddAccountDispatch.put("PersonLastName",new Object[]{"meme"});
+hMailAddAccountDispatch.put("Address", address);
+hMailAddAccountDispatch.put("Password",new Object[]{"meme"});
+hMailAddAccountDispatch.put("Active",new Object[]{true});
+hMailAddAccountDispatch.put("MaxSize",new Object[]{100});
+
+//Now save the account
+hMailAddAccountDispatch.callMethodA("Save");
+
+
+// clean up everything
+hMailAddAccountDispatch.release();
+queryAccountsByAddressDispatch.release();
+hmailGetAllAccountsDispatch.release();
+hmailGetDomainsByNameDispatch.release();
+hmailGetDomainsObjectDispatch.release();
+hmailComInterfaceDispatch.release();
+hmailComInterface.release();
+JISession.destroySession(session);
+
+}catch(Exception e){
+e.printStackTrace();
+}
+
+
+}
+
+
+
+}
+
+DCOM Config on server:
+In order to overcome the authentication issues, you need to do the following.
+•	Run “Enable-PSRemoting” command on your PowerShell command screen, and You'll be asked two question to which the answer should be 'Y'
+•	Got to your windows service, and enable “Remote Registry”.
+•	Go to your Windows “Components Services” and choose “DCOM Config” “Computers->My Computer”, and search for hMail DCOM component. Click right and choose properties, and then tab on “identity”. Choose “This User” radio button, and browse for a user which has administrative privileges on this computer, and then supply a password for this user, the user name and password must be given to your code.
+
+2####################################
+
+I have gathered some information about the problem.
+
+1. Need to access the hMailServer first, That will be through JNI. There is an implementaion available at net to do that job through more robustly. That is JAWIN. I have already implemented it.
+
+2. Aim: is to generate an new account to a specified domain. I am giving some java code here using JAWIN api. 
+
+
+
+import org.jawin.DispatchPtr;
+import org.jawin.win32.Ole32;
+
+public class JAWinTestClass {
+public static void main(String[] args) {
+try {
+Ole32.CoInitialize();
+DispatchPtr app = new DispatchPtr("hMailServer.Application");
+System.out.println(app);	
+
+app.invoke("connect");
+System.out.println("Hello " + app.get("Version"));
+DispatchPtr obje =(DispatchPtr) app.invoke("Authenticate","Administrator","pcs123");	
+//app.invoke("Start");	
+DispatchPtr domains = (DispatchPtr)app.get("Domains");
+DispatchPtr domain = (DispatchPtr)domains.invoke("ItemByName","ABCcom"); 
+System.out.println("Hello domain " + domains.get("Count"));	
+System.out.println("Hello domain " + domain.get("Active"));
+
+DispatchPtr accounts = (DispatchPtr)domain.get("Accounts");	
+
+
+DispatchPtr account = (DispatchPtr)accounts.get("ItemByAddress","XYZadmin@ABC.com");
+
+System.out.println(account.get("Password")); 
+System.out.println(account.get("Address")); 
+
+DispatchPtr newAccount = (DispatchPtr)accounts.invoke("Add");	
+newAccount.put("Address","ad@ABC.com");	
+newAccount.put("Password","ad");
+newAccount.put("Active",true);	
+newAccount.put("MaxSize",100); 
+newAccount.invoke("Save");	
+System.out.println("A new Account has created");	
+
+
+Ole32.CoUninitialize();
+} catch (Exception e) {
+e.printStackTrace();
+} 
+}
+}
+
+
+There are some parts ,which is unnecessary to create an account, just for experiment.
+
+I need to say some more. This class will work only if the hMailServer has installed at the same machine. And at the librarypath contains the " jawin.dll" provided with JAWIN distribution. I have used "jawin-2.0-alpha1" to complete the job.
+
+But I can't invoke it through DCOM. Please help me to do that...because hMailServer is at a remote machine from my application.
+
+3##################################
+JACOB - Java COM Bridge
+JACOB is a JAVA-COM Bridge that allows you to call COM Automation comp
+https://sourceforge.net/projects/jacob-project/
+

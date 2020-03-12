@@ -1,0 +1,200 @@
+        <div class="animated fadeIn">
+
+            <div class="row">
+            	<div class="col-md-6">
+					<tabset class="tab-container">
+						<ul class="nav nav-tabs" role="tablist"> <!---->
+							<li class="nav-item active"> <a class="nav-link active" data-target="#blocking" data-toggle="tab" role="tab" aria-controls="blocking"> <span>Internal Blocking</span> <!----> </a> </li>
+							<li class="nav-item"> <a class="nav-link" data-target="#worker" data-toggle="tab" role="tab" aria-controls="worker"> <span>Worker Threads</span> <!----> </a> </li>
+							<li class="nav-item"> <a class="nav-link" data-target="#failures" data-toggle="tab" role="tab" aria-controls="failures"> <span>Failures</span> <!----> </a> </li> 
+						</ul> 
+						<div class="tab-content"> 
+					        <tab heading="Internal Blocking" class="tab-pane active" id="blocking" role="tabpanel">
+								<div class="card mb-12">
+			                        <table class="table" ng-controller="AppMetricsCtrl">
+			                            <thead>
+			                                <tr>
+			                                    <th>Name</th>
+			                                    <th>Value</th>
+			                                </tr>
+			                            </thead>
+			                            <tbody>
+			                                <tr>
+			                                    <td>In use</td>
+			                                    <td>{{metrics["cspMetrics.pools.worker.vert.x-internal-blocking.in-use"].count}}</td>
+			                                </tr>
+			                                <tr>
+			                                    <td>Max Pool Size</td>
+			                                    <td>{{metrics["cspMetrics.pools.worker.vert.x-internal-blocking.max-pool-size"].value}}</td>
+			                                </tr>
+			                                <tr>
+			                                    <td>Pool Ratio</td>
+			                                    <td>{{metrics["cspMetrics.pools.worker.vert.x-internal-blocking.pool-ratio"].value}}</td>
+			                                </tr>
+			                               <tr>
+			                                    <td>Queue Size</td>
+			                                    <td>{{metrics["cspMetrics.pools.worker.vert.x-internal-blocking.queue-size"].count}}</td>
+			                                </tr>
+			                                <tr>
+			                                    <td>Queue Delay sec.</td>
+			                                    <td>{{metrics["cspMetrics.pools.worker.vert.x-internal-blocking.queue-delay"].meanRate | number : fractionSize}}</td>
+			                                </tr>
+			                                <tr>
+			                                    <td>Usage sec.</td>
+			                                    <td>{{metrics["cspMetrics.pools.worker.vert.x-internal-blocking.usage"].meanRate | number : fractionSize}}</td>
+			                                </tr>
+			                             </tbody>
+			                        </table>
+								</div> 
+ 					        </tab>
+					        <tab heading="Worker Threads" class="tab-pane" id="worker" role="tabpanel">
+								<div class="card mb-12">
+			                       <table class="table" ng-controller="AppMetricsCtrl">
+			                            <thead>
+			                                <tr>
+			                                    <th>Name</th>
+			                                    <th>Value</th>
+			                                </tr>
+			                            </thead>
+			                            <tbody>
+			                               <tr>
+			                                    <td>Pool Ratio</td>
+			                                    <td>{{metrics["cspMetrics.pools.worker.vert.x-worker-thread.pool-ratio"].value}}</td>
+			                                </tr>
+			                               <tr>
+			                                    <td>Queue Size</td>
+			                                    <td>{{metrics["cspMetrics.pools.worker.vert.x-worker-thread.queue-size"].count}}</td>
+			                                </tr>
+			                               <tr>
+			                                   <td>Queue Delay sec.</td>
+			                                   <td>{{metrics["cspMetrics.pools.worker.vert.x-worker-thread.queue-delay"].meanRate | number : fractionSize}}</td>
+			                               </tr>
+			                               <tr>
+			                                   <td>Usage sec.</td>
+			                                   <td>{{metrics["cspMetrics.pools.worker.vert.x-worker-thread.usage"].meanRate | number : fractionSize}}</td>
+			                               </tr>
+			                            </tbody>
+			                        </table>
+								</div> 
+					        </tab>
+					        <tab heading="Failures" class="tab-pane" id="failures" role="tabpanel">
+								<div class="card mb-12">
+			                      <table class="table" ng-controller="AppMetricsCtrl">
+			                            <thead>
+			                                <tr>
+			                                    <th>Replies</th>
+			                                    <th>Value</th>
+			                                </tr>
+			                            </thead>
+			                            <tbody>
+			                                <tr>
+			                                    <td>Count</td>
+			                                    <td>{{metrics["cspMetrics.eventbus.messages.reply-failures"].count}}</td>
+			                                </tr>
+			                               <tr>
+			                                    <td>Avg/sec.</td>
+			                                    <td>{{metrics["cspMetrics.eventbus.messages.reply-failures"].meanRate | number : fractionSize}}</td>
+			                                </tr>
+			                                  <tr>
+			                                    <td>No-Handlers</td>
+			                                    <td>{{metrics["cspMetrics.eventbus.messages.reply-failures.NO_HANDLERS"].count}}</td>
+			                                </tr>
+			                                  <tr>
+			                                    <td>No-Handlers avg/sec.</td>
+			                                    <td>{{metrics["cspMetrics.eventbus.messages.reply-failures.NO_HANDLERS"].meanRate | number : fractionSize}}</td>
+			                                </tr>
+			                             </tbody>
+			                        </table>
+								</div> 	
+					        </tab>
+				        </div> 
+			      </tabset>
+               </div>
+
+            	<div class="col-md-6">
+					<tabset class="tab-container">
+						<ul class="nav nav-tabs" role="tablist"> <!---->
+							<li class="nav-item active"> <a class="nav-link active" data-target="#info" data-toggle="tab" role="tab" aria-controls="info"> <span>System Info</span> <!----> </a> </li>
+							<li class="nav-item"> <a class="nav-link" data-target="#cluster" data-toggle="tab" role="tab" aria-controls="metrics"> <span>Cluster Metrics</span> <!----> </a> </li>
+							<li class="nav-item"> <a class="nav-link" data-target="#throughput" data-toggle="tab" role="tab" aria-controls="throughput"> <span>Throughput</span> <!----> </a> </li> 
+						</ul> 
+						<div class="tab-content"> 
+					        <tab heading="System Info" class="tab-pane active" id="info" role="tabpanel">
+								<div class="card mb-12">
+			                       <table class="table" ng-controller="AppMetricsCtrl">
+			                            <thead>
+			                                <tr>
+			                                    <th>Parameter</th>
+			                                    <th>Value</th>
+			                                </tr>
+			                            </thead>
+			                            <tbody>
+			                             <tr>
+			                                    <td>Cluster Host</td>
+			                                    <td>{{metrics["cspMetrics.cluster-host"].value}}</td>
+			                                </tr>
+			                             <tr>
+			                                    <td>Cluster Port</td>
+			                                    <td>{{metrics["cspMetrics.cluster-port"].value}}</td>
+			                                </tr>
+			
+			                             </tbody>
+			                        </table>
+			 					</div> 
+					        </tab>
+					        <tab heading="Cluster Metrics" class="tab-pane" id="cluster" role="tabpanel">
+								<div class="card mb-12">
+			                       <table class="table" ng-controller="AppMetricsCtrl">
+			                            <thead>
+			                                <tr>
+			                                    <th>Parameter</th>
+			                                    <th>Value</th>
+			                                </tr>
+			                            </thead>
+			                            <tbody>
+			                                <tr>
+			                                    <td>Verticles</td>
+			                                    <td>{{metrics["cspMetrics.verticles"].count}}</td>
+			                                </tr>
+			                                <tr>
+			                                    <td>Timers</td>
+			                                    <td>{{metrics["cspMetrics.timers"].count}}</td>
+			                                </tr>
+			                                <tr>
+			                                    <td>Loop size</td>
+			                                    <td>{{metrics["cspMetrics.event-loop-size"].value}}</td>
+			                                </tr>
+			                                <tr>
+			                                    <td>Pool size</td>
+			                                    <td>{{metrics["cspMetrics.worker-pool-size"].value}}</td>
+			                                </tr>
+			                                 <tr>
+			                                    <td>Handlers</td>
+			                                    <td>{{metrics["cspMetrics.eventbus.handlers"].count}}</td>
+			                                </tr>
+			                                  <tr>
+			                                    <td>UDP Sockets</td>
+			                                    <td>{{metrics["cspMetrics.datagram.sockets"].count}}</td>
+			                                </tr>
+			                             </tbody>
+			                        </table>
+			 					</div> 
+					        </tab>
+					        <tab heading="Throughput" class="tab-pane" id="throughput" role="tabpanel">
+					            <div class="row">
+									<div class="col-md-12">
+					 					<div class="card mb-3" ng-controller="AppMetricsCtrl">
+										      <div class="card-body" ng-controller="AppMetricsCtrl">
+										        <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick"></canvas>
+										      </div>	                
+										 </div>
+					                </div>
+					         	</div>
+         					</tab>
+				        </div> 
+			      </tabset>
+               </div>
+          </div>
+        
+</div>
+

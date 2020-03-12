@@ -1,0 +1,195 @@
+        <div class="animated fadeIn"">
+             <div class="row">
+ 
+          	<div class="col-md-6">
+					<tabset class="tab-container">
+						<ul class="nav nav-tabs" role="tablist"> <!---->
+							<li class="nav-item active"> <a class="nav-link active" data-target="#system" data-toggle="tab" role="tab" aria-controls="system"> <span>System</span> <!----> </a> </li>
+							<li class="nav-item"> <a class="nav-link" data-target="#throughput" data-toggle="tab" role="tab" aria-controls="throughput"> <span>Throughput</span> <!----> </a> </li> 
+						</ul> 
+						<div class="tab-content"> 
+					        <tab heading="System" class="tab-pane active" id="system" role="tabpanel">
+					            <div class="row">
+									<div class="col-md-12">
+				                        <table class="table" ng-controller="AppPerfCtrl">
+				                            <thead>
+				                                <tr>
+				                                    <th>Messages</th>
+				                                    <th>Value</th>
+				                                </tr>
+				                            </thead>
+				                               <tr>
+				                                    <td>Published</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.published"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Published avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.published"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Sent</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.sent"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Sent avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.sent"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Received</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.received"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Received avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.received"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                  <tr>
+				                                    <td>Delivered</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.delivered"].count}}</td>
+				                                </tr>
+				                               <tr>
+				                                    <td>Delivered avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.delivered"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                  <tr>
+				                                    <td>Pending</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.pending"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Bytes written avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.bytes-written"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Bytes read avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.bytes-read"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                            <tbody>
+				 
+				                             </tbody>
+				                        </table>
+			 						</div> 
+			 					</div> 
+					        </tab>
+					        <tab heading="Throughput" class="tab-pane" id="throughput" role="tabpanel">
+					            <div class="row">
+									<div class="col-md-12">
+									     <div class="card-body" ng-controller="AppPerfCtrl">
+									        <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true"></canvas>
+									      </div>
+
+					                </div>
+					         	</div>
+         					</tab>
+				        </div> 
+			      </tabset>
+               </div>
+ 
+          	<div class="col-md-6">
+					<tabset class="tab-container">
+						<ul class="nav nav-tabs" role="tablist"> <!---->
+							<li class="nav-item"> <a class="nav-link active" data-target="#local" data-toggle="tab" role="tab" aria-controls="local"> <span>Local</span> <!----> </a> </li>
+							<li class="nav-item"> <a class="nav-link" data-target="#remote" data-toggle="tab" role="tab" aria-controls="remote"> <span>Remote</span> <!----> </a> </li> 
+						</ul> 
+						<div class="tab-content"> 
+
+					        <tab heading="Local" class="tab-pane active" id="local" role="tabpanel">
+					            <div class="row">
+									<div class="col-md-12">
+				                       <table class="table" ng-controller="AppPerfCtrl">
+				                            <thead>
+				                                <tr>
+				                                    <th>Messages</th>
+				                                    <th>Value</th>
+				                                </tr>
+				                            </thead>
+				                           <tbody>
+				                                <tr>
+				                                    <td>Published</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.published-local"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Published avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.published-local"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Sent</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.sent-local"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Sent avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.sent-local"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Received</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.received-local"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Received avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.received-local"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                  <tr>
+				                                    <td>Delivered</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.delivered-local"].count}}</td>
+				                                </tr>
+				                               <tr>
+				                                    <td>Delivered avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.delivered-local"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                  <tr>
+				                                    <td>Pending</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.pending-local"].count}}</td>
+				                                </tr>
+				                            </tbody>
+				                        </table>
+				 					</div> 
+			 					</div> 
+					        </tab>
+					        <tab heading="Remote" class="tab-pane" id="remote" role="tabpanel">
+					            <div class="row">
+									<div class="col-md-12">
+				                       <table class="table" ng-controller="AppPerfCtrl">
+				                            <thead>
+				                                <tr>
+				                                    <th>Messages</th>
+				                                    <th>Value</th>
+				                                </tr>
+				                            </thead>
+				                            <tbody>
+				                                <tr>
+				                                    <td>Sent</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.sent-remote"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Sent avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.sent-remote"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Received</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.received-remote"].count}}</td>
+				                                </tr>
+				                                <tr>
+				                                    <td>Received avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.received-remote"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                  <tr>
+				                                    <td>Delivered</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.delivered-remote"].count}}</td>
+				                                </tr>
+				                               <tr>
+				                                    <td>Delivered avg/sec.</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.delivered-remote"].meanRate | number : fractionSize}}</td>
+				                                </tr>
+				                                 <tr>
+				                                    <td>Pending</td>
+				                                    <td>{{metrics["cspMetrics.eventbus.messages.pending-remote"].count}}</td>
+				                                </tr>
+				                            </tbody>
+				                        </table>
+				 					</div> 
+			 					</div> 
+					        </tab>
+				        </div> 
+			      </tabset>
+               </div>
+          </div>
+         </div>
+

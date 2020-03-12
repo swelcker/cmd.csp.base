@@ -1,0 +1,20 @@
+{
+  "de_M" : "r Herr",
+  "de_F" : " Frau",
+  "en_M" : "Sir",
+  "en_F" : "Madam",
+  "it_M" : "Signor",
+  "it_F" : "Signora",
+  "es_M" : "Señor",
+  "es_F" : "Señora",
+  "fr_M" : "Monsieur",
+  "fr_F" : "Madame",
+  "ru_M" : "Уважаемый",
+  "ru_F" : "Уважаемая",
+  "ar_M" : "Sa'adat Assayid",
+  "ar_F" : "Sa'adat As'Sayyidah",
+  "ca_M" : "Distingit senyor",
+  "ca_F" : "Distingida senyora",
+  "nl_M" : "Geachte heer",
+  "nl_F" : "Geachte mevrouw"
+}

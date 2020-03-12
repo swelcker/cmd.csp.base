@@ -1,0 +1,69 @@
+        <div class="animated fadeIn" ng-controller="AppIndexCtrl">
+ <div class="row" ng-repeat="record in records" >
+	<div class="col-md-12">
+		<div class="card card-accent-success border-secondary mb-3" >
+			<div class="card-header" >
+				<span  ng-switch="record.status">
+		            <div ng-switch-when="UP" class='badge badge-success'>UP</div>
+		            <div ng-switch-when="DOWN" class='badge badge-danger'>DOWN</div>
+		            <div ng-switch-when="OUT OF SERVICE" class='badge badge-warning'>OUT OF SERVICE</div> 
+				</span> <button type="button" class="btn btn-link" data-toggle="modal" data-target="#{{record.registration}}">{{record.name}}</button>
+				
+				<!-- Modal -->
+<div class="modal fade" id="{{record.registration}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Configuration: {{record.metadata.server.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+       <angular-jsoneditor ng-model="record.metadata.server" options="options" style="width: 100%; height: 300px;"></angular-jsoneditor>         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+				
+				
+            <label class="switch switch-text switch-pill switch-success float-right mb-0">
+            <input type="checkbox" class="switch-input">
+            <span class="switch-label" data-on="On" data-off="Off"></span>
+            <span class="switch-handle"></span>
+          </label>
+			</div>
+			
+			<div class="card-body">
+			<div class="row"  >
+				<div class="col-md-8" >
+			    	<h4 class="card-title">{{record.metadata.server.name}}</h4>
+			    	<h6 class="card-subtitle mb-2 text-muted">Endpoint: {{record.location.endpoint}} ({{record.type}})</h6>
+			    	<p class="card-text">Reg.: {{record.registration}}</p>
+			</div>
+				<div class="col-md-2 justify-content-center text-center align-items-center align-self-center">
+						<div class="circle-graph" data-circle-graph data-percent="50">
+						  <div class="circle-graph-progress">
+						    <div class="circle-graph-progress-fill"></div>
+						  </div>
+						  <div class="circle-graph-percents">
+						    <div class="circle-graph-percents-wrapper">
+						      <span class="circle-graph-percents-number">1</span>
+						      <span class="circle-graph-percents-units">of 8</span>
+						    </div>
+						  </div>
+						</div>				</div>
+				<div class="col-md-2 justify-content-center text-center align-items-center  align-self-center">
+					<div class="row justify-content-center text-center align-items-center  align-self-center"><span class="fa fa-chevron-up fa-2  btn btn-outline-primary"   aria-hidden="true"></span></div>
+			    	<div class="row justify-content-center text-center align-items-center align-self-center"><span class="fa fa-chevron-down fa-2  btn btn-outline-primary"   aria-hidden="true"></span></div>               
+				</div>
+		  	</div>				
+		  	</div>
+	</div>     
+ </div>
+</div>   
+ </div>

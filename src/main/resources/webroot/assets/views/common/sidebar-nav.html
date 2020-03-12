@@ -1,0 +1,51 @@
+<div class="sidebar">
+  <nav class="sidebar-nav">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" ui-sref-active="active" ui-sref="app.main"><i class="icon-speedometer"></i> Dashboard </a>
+      </li>
+
+      <li class="divider"></li>
+          <li class="nav-item">
+            <a class="nav-link" ui-sref-active="active" ui-sref="app.monitor.verticles"><i class="icon-grid"></i> Verticles</a>
+          </li>
+      <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.system')}">
+        <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.system')}" href="#"><i class="icon-puzzle"></i> System</a>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item">
+            <a class="nav-link" ui-sref-active="active" ui-sref="app.monitor.metrics"><i class="icon-pie-chart"></i> Metrics</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" ui-sref-active="active" ui-sref="app.monitor.performance"><i class="icon-speedometer"></i> Performance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" ui-sref-active="active" ui-sref="app.monitor.logs"><i class="icon-info"></i> Logs</a>
+          </li>
+
+        </ul>
+
+
+      <li class="divider"></li>
+       <li class="nav-item " >
+        <a class="nav-link " ui-sref-active="active" ui-sref="app.workitems"><i class="icon-folder-alt"></i> Workitems</a>
+      </li>
+
+      <li class="divider"></li>
+      <li class="nav-item " ">
+        <a class="nav-link " ui-sref-active="active" ui-sref="app.templates"><i class="icon-book-open"></i> Templates</a>
+      </li>
+      
+      <li class="divider"></li>
+       <li class="nav-item " ">
+        <a class="nav-link " ui-sref-active="active" ui-sref="app.workflow"><i class="icon-share"></i> Workflow</a>
+      </li>
+
+
+      <li class="divider"></li>
+      <li class="nav-item " ">
+        <a class="nav-link " ui-sref-active="active" ui-sref="app.configuration"><i class="icon-settings"></i> Configuration</a>
+      </li>
+      
+    </ul>
+  </nav>
+</div>
